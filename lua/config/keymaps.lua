@@ -7,7 +7,6 @@ vim.g.maplocalleader = " "
 
 map = vim.keymap.set
 
-
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
 
@@ -43,10 +42,10 @@ map("n", "s=", "<C-w>=", opt)
 map("n", "<leader>t", ":sp | terminal<CR>", opt)
 map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
 map("t", "<Esc>", "<C-\\><C-n>", opt)
-map("t", "<A-h>", [[ <C-\><C-N><C-w>h ]], opt)
-map("t", "<A-j>", [[ <C-\><C-N><C-w>j ]], opt)
-map("t", "<A-k>", [[ <C-\><C-N><C-w>k ]], opt)
-map("t", "<A-l>", [[ <C-\><C-N><C-w>l ]], opt)
+-- 在terminal模式下，清理一个单词
+map("t", "<C-w>", "[[<C-\\><C-n><C-w>. ]]", opt)
+-- 在terminal模式下，清理一整行
+map("t", "<C-u>", "[[C-u>]]", opt)
 
 -- 上下滚动浏览
 map("n", "<C-j>", "4j", opt)
@@ -62,7 +61,7 @@ map("v", "<leader>y", [["+y]], opt)
 map("n", "<leader>o", "<C-o>", opt)
 
 --粘贴到下面一行
-map("n", "<leader>p", "o<Esc>p", opt)
+map("n", "<leader>p", ":pu<CR>", opt)
 -- 粘贴到上面一行
 map("n", "<leader>P", "O<Esc>p", opt)
 
@@ -70,8 +69,3 @@ map("n", "<leader>P", "O<Esc>p", opt)
 map("n", "H", "^", opt)
 --回到本行的最后一个字符
 map("n", "L", "g_", opt)
-
--- 回到本句的第一个字符
-map("n", "M", "0", opt)
--- 回到本句的最后一个字符
-map("n", "N", "$", opt)
