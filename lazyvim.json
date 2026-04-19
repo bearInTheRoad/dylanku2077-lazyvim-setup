@@ -1,6 +1,5 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.ai.codeium",
     "lazyvim.plugins.extras.formatting.prettier",
     "lazyvim.plugins.extras.lang.sql"
   ],
@@ -10,3 +9,4 @@
   },
   "version": 8
 }
+

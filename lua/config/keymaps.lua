@@ -41,6 +41,7 @@ map("n", "s=", "<C-w>=", opt)
 -- Terminal相关
 map("n", "<leader>t", ":sp | terminal<CR>", opt)
 map("n", "<leader>vt", ":vsp | terminal<CR>", opt)
+-- Exit terminal mode and return to normal mode
 map("t", "<Esc>", "<C-\\><C-n>", opt)
 -- 在terminal模式下，清理一个单词
 map("t", "<C-w>", "[[<C-\\><C-n><C-w>. ]]", opt)
@@ -69,3 +70,11 @@ map("n", "<leader>P", "O<Esc>p", opt)
 map("n", "H", "^", opt)
 --回到本行的最后一个字符
 map("n", "L", "g_", opt)
+
+-- --- CodeCompanion (AI) 快捷键 ---
+-- 开启对话
+map({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", opt)
+-- 行内补全/重构请求
+map({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<cr>", opt)
+-- 快捷操作菜单 (类似 VS Code 的 Code Action)
+map("n", "<leader>aa", "<cmd>CodeCompanionActions<cr>", opt)
