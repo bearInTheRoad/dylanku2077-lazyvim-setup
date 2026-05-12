@@ -71,6 +71,9 @@ map("n", "H", "^", opt)
 --回到本行的最后一个字符
 map("n", "L", "g_", opt)
 
+--展示行信息，包括错误
+map("n", "<leader>ud", vim.diagnostic.open_float, opt)
+
 -- --- CodeCompanion (AI) 快捷键 ---
 -- 开启对话
 map({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", opt)
