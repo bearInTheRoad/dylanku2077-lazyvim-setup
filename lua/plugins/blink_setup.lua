@@ -1,17 +1,8 @@
 return {
 	"saghen/blink.cmp",
-	dependencies = { "olimorris/codecompanion.nvim", "blink.compat" },
 	opts = {
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "codecompanion" },
-			providers = {
-				codecompanion = {
-					name = "CodeCompanion",
-					module = "blink.compat.source",
-					score_offset = 100,
-					opts = {},
-				},
-			},
+			default = { "lsp", "path", "snippets", "buffer" },
 		},
 		completion = {
 			-- 开启 Ghost Text 预览 AI 建议
