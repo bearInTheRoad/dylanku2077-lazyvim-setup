@@ -6,8 +6,8 @@ return {
       ignored = true,
     },
     picker = {
-          hidden = true,
-  	  ignored = true,
+      hidden = true,
+      ignored = true,
     },
   },
 }
