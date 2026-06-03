@@ -73,11 +73,3 @@ map("n", "L", "g_", opt)
 
 --展示行信息，包括错误
 map("n", "<leader>ud", vim.diagnostic.open_float, opt)
-
--- --- CodeCompanion (AI) 快捷键 ---
--- 开启对话
-map({ "n", "v" }, "<leader>ac", "<cmd>CodeCompanionChat Toggle<cr>", opt)
--- 行内补全/重构请求
-map({ "n", "v" }, "<leader>ai", "<cmd>CodeCompanion<cr>", opt)
--- 快捷操作菜单 (类似 VS Code 的 Code Action)
-map("n", "<leader>aa", "<cmd>CodeCompanionActions<cr>", opt)
