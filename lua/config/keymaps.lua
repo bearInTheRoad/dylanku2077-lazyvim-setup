@@ -68,8 +68,10 @@ map("n", "<leader>P", "O<Esc>p", opt)
 
 --回到本行的第一个字符
 map("n", "H", "^", opt)
+map("v", "H", "^", opt)
 --回到本行的最后一个字符
 map("n", "L", "g_", opt)
+map("v", "L", "g_", opt)
 
 --展示行信息，包括错误
 map("n", "<leader>ud", vim.diagnostic.open_float, opt)
