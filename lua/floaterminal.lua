@@ -34,9 +34,10 @@ local function create_float_window(opts)
 		style = "minimal", --no boarder or extra UI elements
 		border = "rounded",
 		title = opts.title or "FloatTerminal",
+		title_pos = "center",
 	}
 
-	-- careate the floating window
+	-- create the floating window
 	local win = vim.api.nvim_open_win(buf, true, win_config)
 
 	return { buf = buf, win = win }
@@ -49,6 +50,7 @@ function M.toggle_terminal()
 		if vim.bo[M.state.floating.buf].buftype ~= "terminal" then
 			vim.cmd("terminal")
 		end
+		vim.cmd("startinsert")
 	else
 		vim.api.nvim_win_hide(M.state.floating.win)
 	end
@@ -58,7 +60,5 @@ function M.setup()
 	vim.api.nvim_create_user_command("FloatTerminal", M.toggle_terminal, {})
 	vim.keymap.set({ "n", "t", "v" }, "<leader>qt", M.toggle_terminal)
 end
-
-M.setup()
 
 return M
