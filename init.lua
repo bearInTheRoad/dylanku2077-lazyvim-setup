@@ -2,6 +2,7 @@
 require("config.lazy")
 
 -- load my own plugins
+-- can add more
 require("floaterminal").setup()
 
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
