@@ -10,33 +10,18 @@ map = vim.keymap.set
 -- 复用 opt 参数
 local opt = { noremap = true, silent = true }
 
--- 取消 s 默认功能
-map("n", "s", "", opt)
--- windows 分屏快捷键
-map("n", "sv", ":vsp<CR>", opt)
-map("n", "sh", ":sp<CR>", opt)
--- 关闭当前
-map("n", "sc", "<C-w>c", opt)
--- 关闭其他
-map("n", "so", "<C-w>o", opt)
--- Alt + hjkl  窗口之间跳转
+-- 窗口管理交给 LazyVim 默认快捷键: <leader>- <leader>| <leader>wd <C-w>*
+-- 窗口之间跳转
 map("n", "<leader>h", "<C-w>h", opt)
 map("n", "<leader>j", "<C-w>j", opt)
 map("n", "<leader>k", "<C-w>k", opt)
 map("n", "<leader>l", "<C-w>l", opt)
 
--- 左右比例控制
+-- 比例控制 (LazyVim 默认已有 <C-Up/Down/Left/Right> 微调)
 map("n", "<C-Left>", ":vertical resize -2<CR>", opt)
 map("n", "<C-Right>", ":vertical resize +2<CR>", opt)
-map("n", "s,", ":vertical resize -20<CR>", opt)
-map("n", "s.", ":vertical resize +20<CR>", opt)
--- 上下比例
-map("n", "sj", ":resize +10<CR>", opt)
-map("n", "sk", ":resize -10<CR>", opt)
 map("n", "<C-Down>", ":resize +2<CR>", opt)
 map("n", "<C-Up>", ":resize -2<CR>", opt)
--- 等比例
-map("n", "s=", "<C-w>=", opt)
 
 -- Terminal相关
 map("n", "<leader>t", ":sp | terminal<CR>", opt)
