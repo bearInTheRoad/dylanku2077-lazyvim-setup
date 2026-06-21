@@ -1,6 +1,6 @@
 return {
 	{
-		dir = "~/Documents/presents.nvim",
+		dir = "../presents.nvim",
 		cmd = { "Present" },
 		config = function()
 			require("present")
