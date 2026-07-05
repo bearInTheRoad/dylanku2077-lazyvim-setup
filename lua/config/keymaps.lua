@@ -67,6 +67,5 @@ local function insert_timestamp()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))
   vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { ts })
 end
-map("i", "<M-t>", insert_timestamp, opt)
 map("n", "<leader>T", insert_timestamp, opt)
 vim.api.nvim_create_user_command("Timestamp", insert_timestamp, { desc = "Insert current timestamp" })
