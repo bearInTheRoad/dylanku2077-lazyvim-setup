@@ -61,11 +61,19 @@ map("v", "L", "g_", opt)
 --展示行信息，包括错误
 map("n", "<leader>ud", vim.diagnostic.open_float, opt)
 
--- 插入当前时间戳 (insert 模式 <M-t>, normal 模式 <leader>T)
+-- 插入 TODO 时间戳行 (normal 模式 <leader>T)
 local function insert_timestamp()
   local ts = os.date("%Y-%m-%d %H:%M:%S")
-  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
-  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { ts })
+  -- 根据当前文件的注释风格自动选择注释符号
+  local cs = vim.bo.commentstring
+  local comment = cs:match("^(.-)%%s")
+  if comment == nil or comment == "" then comment = "--" end
+  comment = comment:gsub("%s+$", "")
+  local line = ("%s TODO: [%s] "):format(comment, ts)
+  local row = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_lines(0, row, row, false, { line })
+  vim.api.nvim_win_set_cursor(0, { row + 1, #line })
+  vim.cmd("startinsert!")
 end
 map("n", "<leader>T", insert_timestamp, opt)
 vim.api.nvim_create_user_command("Timestamp", insert_timestamp, { desc = "Insert current timestamp" })
