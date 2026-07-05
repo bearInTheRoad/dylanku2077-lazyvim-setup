@@ -60,3 +60,13 @@ map("v", "L", "g_", opt)
 
 --展示行信息，包括错误
 map("n", "<leader>ud", vim.diagnostic.open_float, opt)
+
+-- 插入当前时间戳 (insert 模式 <M-t>, normal 模式 <leader>T)
+local function insert_timestamp()
+  local ts = os.date("%Y-%m-%d %H:%M:%S")
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, { ts })
+end
+map("i", "<M-t>", insert_timestamp, opt)
+map("n", "<leader>T", insert_timestamp, opt)
+vim.api.nvim_create_user_command("Timestamp", insert_timestamp, { desc = "Insert current timestamp" })
