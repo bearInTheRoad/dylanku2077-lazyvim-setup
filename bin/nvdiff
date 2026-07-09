@@ -1,0 +1,51 @@
+#!/bin/sh
+# nvdiff — diff a file against a git ref in nvim's side-by-side diff mode.
+#
+# Portable POSIX sh (works under zsh/bash/fish/dash), tracked in the nvim
+# config repo so it versions with your editor setup, not your shell rc.
+#
+# Usage:
+#   nvdiff settings.json           # diff working file vs HEAD
+#   nvdiff settings.json HEAD~3    # diff vs an older commit
+#   nvdiff settings.json :0        # diff vs the staged version
+#
+# Setup (one-time): put this script on your PATH. Pick whichever shell you use:
+#   zsh/bash  ->  export PATH="$HOME/.config/nvim/bin:$PATH"   in ~/.zshrc / ~/.bashrc
+#   fish      ->  fish_add_path ~/.config/nvim/bin             in ~/.config/fish/config.fish
+# Or symlink it somewhere already on PATH:
+#   ln -s ~/.config/nvim/bin/nvdiff /usr/local/bin/nvdiff
+
+set -eu
+
+file="${1:-}"
+ref="${2:-HEAD}"
+
+if [ -z "$file" ]; then
+    echo "usage: nvdiff <file> [ref]   (default ref = HEAD)" >&2
+    exit 2
+fi
+
+if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "nvdiff: not inside a git repo" >&2
+    exit 1
+fi
+
+# Resolve the file's path relative to the repo root so `git show ref:PATH`
+# works regardless of which subdir you invoke nvdiff from.
+repo_root="$(git rev-parse --show-toplevel)"
+rel_path="$(cd "$(dirname "$file")" && pwd)/$(basename "$file")"
+rel_path="${rel_path#"$repo_root"/}"
+
+if ! git cat-file -e "${ref}:${rel_path}" 2>/dev/null; then
+    echo "nvdiff: ${ref}:${rel_path} does not exist in git" >&2
+    exit 1
+fi
+
+# Use a temp file instead of process substitution <(...) — the latter is a
+# bash/zsh-ism and breaks under POSIX sh and fish. Temp file keeps this script
+# shell-agnostic. Trap ensures cleanup on exit, signal, or nvim error.
+tmpfile="$(mktemp -t nvdiff)"
+trap 'rm -f "$tmpfile"' EXIT INT TERM HUP
+git show "${ref}:${rel_path}" > "$tmpfile"
+
+exec nvim -d "$file" "$tmpfile"
