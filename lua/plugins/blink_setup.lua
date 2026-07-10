@@ -8,5 +8,19 @@ return {
         },
       },
     },
+    sources = {
+      default = { "databricks" },
+      providers = {
+        databricks = {
+          name = "databricks",
+          module = "blink_databricks",
+          fallbacks = {},
+          score_offset = 10,
+          enabled = function()
+            return vim.bo.filetype == "sql"
+          end,
+        },
+      },
+    },
   },
 }
