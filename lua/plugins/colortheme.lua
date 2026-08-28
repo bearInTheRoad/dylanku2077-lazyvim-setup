@@ -1,12 +1,16 @@
 return {
-	-- 1. install the colorscheme plugin (merges opts with LazyVim's bundled spec)
+	-- 1. install the colorscheme plugin
 	{
-		"folke/tokyonight.nvim",
+		"scottmckendry/cyberdream.nvim",
+		lazy = false,
+		priority = 1000,
 		opts = {
-			on_highlights = function(hl, c)
-				-- make ignored/hidden entries in the Snacks explorer/picker brighter
-				hl.SnacksPickerPathIgnored = { fg = c.fg_dark }
-				hl.SnacksPickerPathHidden = { fg = c.fg_dark }
+			-- make ignored/hidden entries in the Snacks explorer/picker bright
+			overrides = function(c)
+				return {
+					SnacksPickerPathIgnored = { fg = c.fg },
+					SnacksPickerPathHidden = { fg = c.fg },
+				}
 			end,
 		},
 	},
@@ -15,7 +19,7 @@ return {
 	{
 		"LazyVim/LazyVim",
 		opts = {
-			colorscheme = "tokyonight",
+			colorscheme = "cyberdream",
 		},
 	},
 }
